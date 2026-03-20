@@ -333,3 +333,170 @@ kubectl get pods -n nginx
 kubectl delete -f cronjob.yml
 ls
 kubectl delete -f cron-job.yml
+cd kubernetes
+cd nginx
+sudo vim service.yml
+kubectl apply -f service.yml
+kubectl get all -n nginx
+kubectl port-forward service/nginx-service -n nginx 80:80 --address=0.0.0.0
+sudo -E kubectl port-forward service/nginx-service -n nginx 80:80 --address=0.0.0.0
+sudo -E kubectl port-forward service/nginx-service -n nginx 81:80 --address=0.0.0.0
+clear
+=ip -a
+ip
+ip a
+ls
+git --version
+git init
+git remote add origin https://github.com/Praveen48589/Kubernetes.git
+git add .
+git commit -m "demo kubernetes"
+git status
+git branch -M main
+git branch
+git status
+git add .
+git commit -m "demo kubernetes"
+git  status
+git push -u origin main
+git pull --rebase origin main
+git push -u origin main
+clear
+ls
+cd kubernetes
+ls
+cd nginc
+cd nginx
+ls
+kubectl gets pod
+kubectl get pod
+kubectl get pod -n nginx
+kubectl get namespaces
+kubectl get pods -n nginx
+clear
+ls
+cd kubernetes
+ls
+cd nginx
+ls
+sudo vim persistant_volume.yml
+sudo vim
+mv persistant_volume.yml persistent_volume.yml
+ls
+sudo vim persistent_volume.yml
+kubectl apply -f persistent_volume.yml
+ls
+kubectl get pv
+sudo vim persistent_vol_claim.yml
+kubectl get pv
+clear
+ls
+kubectl apply -f persistent_vol_claim.yml
+l
+kubectl get deployment.yml -n nginx
+kubectl get deployment -n nginx
+sudo vim deployment.yml
+kubectl apply -f deployment.yml
+kubectl get pods -n nginx
+kubectl describe pods/nginx-deployment-78f6b5df74-4zwcv -n nginx
+sudo vim deployment.yml
+clear
+ls
+sudo vim persistent_volume.yml
+sudo vim persistent_vol_claim.yml
+kubectl apply -f deployment.yml
+kubectl get pods -n nginx
+kubectl get pv
+kubectl delete pv/local-pv
+kubectl delete pv/local-pvc
+kubectl get pv
+kubectl delete pv/local-pv
+clear
+kubectl get pv
+kubectl apply persistent_volume.yml
+kubectl apply -f persistent_volume.yml
+kubectl get pv
+kubectl delete pv/local-pvc
+kubectl delete pvc/local-pvc
+kubectl apply -f persistent_volume.yml
+clearf
+clear
+ls
+kubectl apply -f persistent_vol_claim.yml
+kubectl get pod -n nginx
+kubectl describe pod/nginx-deployment-55fb85df89-fbkmz
+kubectl describe pods/nginx-deployment-55fb85df89-fbkmz
+kubectl describe pods/nginx-deployment-55fb85df89-fbkmz -n nginx
+clear
+kubectl get pod -n nginx -o wide
+kubectl get node
+docker ps
+docker exec -it 37aa6d913507 bash
+ls
+docker exec -it c4e713e5cbe9 bash
+sudo vim service.yml
+ls
+clear
+cd kubernetes
+cd nginx
+ls
+clear
+ls
+clear
+cd ..
+git clone https://github.com/Praveen48589/django-notes-app.git
+ls
+cd django-notes-app
+ls
+git branch
+docker build -t notes-app-k8s .
+clear
+docker images
+docker images -a
+docker login -u praveen416
+docker tag notes-app-k8s:latest praveen416/notes-app-k8s:latest
+docker push praveen416/notes-app-k8s:latest
+mkdir k8s
+cd k8s
+sudo deployment.yml
+sudo vim deployment.yml
+sudo vim namespace.yml
+sudo vim deployment.yml
+sudo vim namespace.yml
+sudo vim deployment.yml
+sudo cat namespace.yml
+sudo vim service.yml
+ls
+kubectl apply -f service.yml
+kubectl apply -f namespace.yml
+kubectl apply -f deployment.yml
+sudo vim deployment.yml
+kubectl apply -f deployment.yml
+kubectl apply -f service.yml
+kubrctl get namespace
+kubectl get namespace
+kbectl get pod -n notes-app
+kubectl get pod -n notes-app
+kubectl port-forward service/notes-app-service -n notes-app 81:8000 --address=0.0.0.0
+sudo -E kubectl port-forward service/notes-app-service -n notes-app 81:8000 --address=0.0.0.0
+sudo -E kubectl port-forward service/notes-app-service -n notes-app 8000:8000 --address=0.0.0.0
+kubectl get pods -n notes-app
+sudo cat deployment.yml
+sudo delete deployment/notes-app
+kubectl delete -f deployment.yml
+ls
+sudo vim deployment.yml
+kubectl delete -f service.yml
+kubectl apply -f deployment.yml
+kubectl apply -f service.yml
+sudo -E kubectl port-forward service/notes-app-service -n notes-app 8000:8000 --address=0.0.0.0
+kubectl get pods -n notes-app
+kubectl logs notes-app-58bfdb679c-dnszh  -n notes-app
+cd ..
+ls
+cd mynotes
+ls
+cd ..
+cd notesapp
+ls
+sudo vim settings.py
