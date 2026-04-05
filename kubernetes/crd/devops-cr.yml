@@ -1,0 +1,9 @@
+kind: DevOpsBatch
+apiVersion: praveentomar.com/v1
+metadata:
+  name: freefire-arena
+spec: 
+  name: eagle team of freefire
+  duration: for 3 months for now
+  platform: Esports india
+  mode: Live Gaming 
