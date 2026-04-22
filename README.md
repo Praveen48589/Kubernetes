@@ -175,90 +175,38 @@ kind --version
 
 ---
 
-## Create Your First Cluster
-
-Create a default single-node cluster:
-
-```bash
-kind create cluster
-```
-
-KIND will pull the node image, configure the control plane, and update your kubeconfig automatically.
-
-Verify the cluster is running:
-
-```bash
-kubectl cluster-info --context kind-kind
-kubectl get nodes
-```
-
-Expected output:
-
-```
-NAME                 STATUS   ROLES           AGE   VERSION
-kind-control-plane   Ready    control-plane   1m    v1.xx.x
-```
-
----
-
-## Cluster Configuration
-
-KIND supports a YAML-based configuration file for advanced setups.
-
-### Single-Node Cluster
-
-```yaml
-# single-node.yaml
-kind: Cluster
-apiVersion: kind.x-k8s.io/v1alpha4
-name: dev-cluster
-```
-
-```bash
-kind create cluster --config single-node.yaml
-```
-
----
+## Create Your First Cluste
 
 ### Multi-Node Cluster
 
-```yaml
-# multi-node.yaml
+# create a file config.yml
+# Then add is :
+```bash
+
 kind: Cluster
 apiVersion: kind.x-k8s.io/v1alpha4
-name: ha-cluster
 nodes:
-  - role: control-plane
-  - role: worker
-  - role: worker
-```
-
+- role: control-plane
+  image: kindest/node:v1.31.2
+- role: worker
+  image: kindest/node:v1.31.2
+- role: worker
+  image: kindest/node:v1.31.2
+- role: worker
+  image: kindest/node:v1.31.2
+  extraPortMappings:
+  - containerPort: 80
+    hostPort: 80
+    protocol: TCP
+  - containerPort: 443
+    hostPort: 443
+    protocol: TCP
 ```bash
-kind create cluster --config multi-node.yaml
-```
 
----
+kubectl create cluster --name=<cluster name>  --config=config.yml
 
-### Cluster with Port Mapping
 
-Useful when running services that need to be accessible from the host machine:
 
-```yaml
-# port-mapping.yaml
-kind: Cluster
-apiVersion: kind.x-k8s.io/v1alpha4
-name: app-cluster
-nodes:
-  - role: control-plane
-    extraPortMappings:
-      - containerPort: 30080
-        hostPort: 8080
-        protocol: TCP
-```
 
-```bash
-kind create cluster --config port-mapping.yaml
-```
 
----
 
