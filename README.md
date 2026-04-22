@@ -1,9 +1,9 @@
 # KIND — Kubernetes IN Docker on Linux
 
-## Overview
+> **Run local Kubernetes clusters using Docker containers as nodes.**  
+> KIND is ideal for local development, CI pipelines, and testing Kubernetes configurations without a cloud provider.
 
-**KIND** (Kubernetes IN Docker) is an official Kubernetes SIG (Special Interest Group) tool that uses Docker containers as Kubernetes nodes. It was originally designed for testing Kubernetes itself but is now widely used for local development and CI workflows.
-
+---
 
 ## Table of Contents
 
@@ -26,6 +26,10 @@
 - [Resources](#resources)
 
 ---
+
+## Overview
+
+**KIND** (Kubernetes IN Docker) is an official Kubernetes SIG (Special Interest Group) tool that uses Docker containers as Kubernetes nodes. It was originally designed for testing Kubernetes itself but is now widely used for local development and CI workflows.
 
 | Feature | Detail |
 |---|---|
@@ -104,13 +108,26 @@ sudo systemctl status docker
 Add your user to the `docker` group to run Docker commands without `sudo`:
 
 ```bash
-sudo usermod -aG docker $USER && newgrp docker
+sudo usermod -aG docker $USER
+newgrp docker
 ```
 
 > **Important:** If `newgrp docker` does not apply the change to your current session, log out and log back in. On some systems, a full reboot may be required.
 
 Confirm Docker works as your non-root user:
 
+```bash
+docker run hello-world
+```
+
+Expected output should include:
+
+```
+Hello from Docker!
+This message shows that your installation appears to be working correctly.
+```
+
+---
 
 ### Step 3 — Install kubectl
 
@@ -175,38 +192,90 @@ kind --version
 
 ---
 
-## Create Your First Cluste
+## Create Your First Cluster
+
+Create a default single-node cluster:
+
+```bash
+kind create cluster
+```
+
+KIND will pull the node image, configure the control plane, and update your kubeconfig automatically.
+
+Verify the cluster is running:
+
+```bash
+kubectl cluster-info --context kind-kind
+kubectl get nodes
+```
+
+Expected output:
+
+```
+NAME                 STATUS   ROLES           AGE   VERSION
+kind-control-plane   Ready    control-plane   1m    v1.xx.x
+```
+
+---
+
+## Cluster Configuration
+
+KIND supports a YAML-based configuration file for advanced setups.
+
+### Single-Node Cluster
+
+```yaml
+# single-node.yaml
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+name: dev-cluster
+```
+
+```bash
+kind create cluster --config single-node.yaml
+```
+
+---
 
 ### Multi-Node Cluster
 
-# create a file config.yml
-# Then add is :
-```bash
-
+```yaml
+# multi-node.yaml
 kind: Cluster
 apiVersion: kind.x-k8s.io/v1alpha4
+name: ha-cluster
 nodes:
-- role: control-plane
-  image: kindest/node:v1.31.2
-- role: worker
-  image: kindest/node:v1.31.2
-- role: worker
-  image: kindest/node:v1.31.2
-- role: worker
-  image: kindest/node:v1.31.2
-  extraPortMappings:
-  - containerPort: 80
-    hostPort: 80
-    protocol: TCP
-  - containerPort: 443
-    hostPort: 443
-    protocol: TCP
+  - role: control-plane
+  - role: worker
+  - role: worker
+```
+
 ```bash
+kind create cluster --config multi-node.yaml
+```
 
-kubectl create cluster --name=<cluster name>  --config=config.yml
+---
 
+### Cluster with Port Mapping
 
+Useful when running services that need to be accessible from the host machine:
 
+```yaml
+# port-mapping.yaml
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+name: app-cluster
+nodes:
+  - role: control-plane
+    extraPortMappings:
+      - containerPort: 30080
+        hostPort: 8080
+        protocol: TCP
+```
 
+```bash
+kind create cluster --config port-mapping.yaml
+```
 
+---
 
